@@ -30,7 +30,7 @@ html, body, [class*="css"]{
     max-width:650px;
 }
 
-/* Subtitle */
+/* Couple Names */
 
 .subtitle{
     text-align:center;
@@ -44,8 +44,8 @@ html, body, [class*="css"]{
 /* Navigation Buttons */
 
 .stButton > button{
-    width:40px;
-    height:32px;
+    width:38px;
+    height:30px;
     border-radius:50%;
     background:#8B0000;
     color:white;
@@ -53,8 +53,6 @@ html, body, [class*="css"]{
     font-size:14px;
     font-weight:bold;
     padding:0px;
-    margin:auto;
-    display:block;
 }
 
 .stButton > button:hover{
@@ -108,7 +106,7 @@ html, body, [class*="css"]{
     }
 }
 
-/* Hide audio controls */
+/* Hide Audio Controls */
 
 audio{
     display:none;
@@ -163,14 +161,16 @@ if "page" not in st.session_state:
 
 # ---------------- NAVIGATION ---------------- #
 
-col1, col2, col3 = st.columns([1,8,1])
+st.markdown("<br>", unsafe_allow_html=True)
 
-with col1:
+nav1, nav2, nav3 = st.columns([4,1,1])
+
+with nav2:
     if st.button("❮"):
         if st.session_state.page > 0:
             st.session_state.page -= 1
 
-with col3:
+with nav3:
     if st.button("❯"):
         if st.session_state.page < len(pages)-1:
             st.session_state.page += 1
