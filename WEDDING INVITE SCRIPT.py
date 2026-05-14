@@ -8,6 +8,29 @@ st.set_page_config(
     layout="centered"
 )
 
+# ---------------- SESSION ---------------- #
+
+if "page" not in st.session_state:
+    st.session_state.page = 0
+
+# ---------------- PAGES ---------------- #
+
+pages = [
+    "page_1.jpg",
+    "page_2.jpg",
+    "page_3.jpg"
+]
+
+# ---------------- BUTTON FUNCTIONS ---------------- #
+
+def next_page():
+    if st.session_state.page < len(pages) - 1:
+        st.session_state.page += 1
+
+def prev_page():
+    if st.session_state.page > 0:
+        st.session_state.page -= 1
+
 # ---------------- CSS ---------------- #
 
 st.markdown("""
@@ -28,46 +51,55 @@ html, body, [class*="css"]{
     padding-top:0rem;
     padding-bottom:0rem;
     max-width:650px;
+    padding-left:0rem;
+    padding-right:0rem;
 }
 
-/* Couple Names */
+/* Couple Name */
 
 .subtitle{
     text-align:center;
     color:#b8860b;
     font-size:18px;
     margin-top:-5px;
-    margin-bottom:5px;
+    margin-bottom:2px;
     font-weight:bold;
 }
 
-/* Navigation Buttons */
+/* Hide Audio Player */
 
-.stButton > button{
-    width:38px;
-    height:30px;
-    border-radius:50%;
-    background:#8B0000;
-    color:white;
+audio{
+    display:none;
+}
+
+/* Remove Button Spacing */
+
+div.stButton > button:first-child{
     border:none;
-    font-size:14px;
+    background:rgba(139,0,0,0.35);
+    color:white;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    font-size:22px;
     font-weight:bold;
     padding:0px;
+    backdrop-filter: blur(4px);
 }
 
-.stButton > button:hover{
-    background:#a50000;
+div.stButton > button:first-child:hover{
+    background:rgba(139,0,0,0.55);
     color:white;
 }
 
-/* Falling Flowers */
+/* Floating Flowers */
 
 .flower{
     position:fixed;
     top:-10vh;
     animation:fall linear infinite;
     z-index:999;
-    opacity:0.65;
+    opacity:0.55;
 }
 
 .flower:nth-child(1){
@@ -106,12 +138,6 @@ html, body, [class*="css"]{
     }
 }
 
-/* Hide Audio Controls */
-
-audio{
-    display:none;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -146,38 +172,27 @@ st.audio(
     autoplay=True
 )
 
-# ---------------- PAGES ---------------- #
-
-pages = [
-    "page_1.jpg",
-    "page_2.jpg",
-    "page_3.jpg"
-]
-
-# ---------------- SESSION ---------------- #
-
-if "page" not in st.session_state:
-    st.session_state.page = 0
-
-# ---------------- NAVIGATION ---------------- #
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-nav1, nav2, nav3 = st.columns([4,1,1])
-
-with nav2:
-    if st.button("❮"):
-        if st.session_state.page > 0:
-            st.session_state.page -= 1
-
-with nav3:
-    if st.button("❯"):
-        if st.session_state.page < len(pages)-1:
-            st.session_state.page += 1
-
 # ---------------- IMAGE ---------------- #
 
 st.image(
     pages[st.session_state.page],
     use_container_width=True
 )
+
+# ---------------- OVERLAY NAVIGATION ---------------- #
+
+col1, col2, col3 = st.columns([1,10,1])
+
+with col1:
+    st.button(
+        "❮",
+        on_click=prev_page,
+        use_container_width=True
+    )
+
+with col3:
+    st.button(
+        "❯",
+        on_click=next_page,
+        use_container_width=True
+    )
