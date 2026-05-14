@@ -1,12 +1,10 @@
 import streamlit as st
-from PIL import Image
-import random
-import base64
+import streamlit.components.v1 as components
 
 # ---------------- PAGE CONFIG ---------------- #
 
 st.set_page_config(
-    page_title="Manish Weds Mansi",
+    page_title="Wedding Invitation",
     page_icon="💍",
     layout="centered"
 )
@@ -21,78 +19,86 @@ footer {visibility:hidden;}
 header {visibility:hidden;}
 
 html, body, [class*="css"] {
-    background: linear-gradient(to bottom, #fff5e6, #ffe6e6);
+    background-color: #fffaf5;
     font-family: Georgia;
 }
 
-/* Mobile Friendly */
+/* Reduce top spacing */
 .block-container {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    max-width: 700px;
+    max-width: 650px;
 }
 
 /* Title */
 .title {
     text-align:center;
-    font-size:42px;
+    font-size:38px;
     color:#8B0000;
     font-weight:bold;
+    margin-bottom:0px;
 }
 
 .subtitle {
     text-align:center;
+    font-size:20px;
     color:#b8860b;
-    font-size:24px;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 /* Buttons */
 .stButton>button {
     width:100%;
-    border-radius:12px;
+    border-radius:10px;
     background-color:#8B0000;
     color:white;
-    font-size:18px;
     border:none;
-    padding:0.6rem;
+    padding:0.45rem;
+    font-size:16px;
+    font-weight:bold;
 }
 
-/* Flower Animation */
+.stButton>button:hover {
+    background-color:#a50000;
+    color:white;
+}
 
+/* Flowers Animation */
 .flower {
     position: fixed;
     top: -10vh;
     animation: fall linear infinite;
     z-index: 999;
+    opacity:0.8;
 }
 
-.flower:nth-child(1) {
-    left: 10%;
-    animation-duration: 10s;
+.flower:nth-child(1){
+    left:10%;
+    animation-duration:10s;
 }
 
-.flower:nth-child(2) {
-    left: 30%;
-    animation-duration: 14s;
+.flower:nth-child(2){
+    left:30%;
+    animation-duration:13s;
 }
 
-.flower:nth-child(3) {
-    left: 50%;
-    animation-duration: 12s;
+.flower:nth-child(3){
+    left:50%;
+    animation-duration:11s;
 }
 
-.flower:nth-child(4) {
-    left: 70%;
-    animation-duration: 15s;
+.flower:nth-child(4){
+    left:70%;
+    animation-duration:14s;
 }
 
-.flower:nth-child(5) {
-    left: 90%;
-    animation-duration: 13s;
+.flower:nth-child(5){
+    left:90%;
+    animation-duration:12s;
 }
 
 @keyframes fall {
+
     0% {
         transform: translateY(-10vh) rotate(0deg);
     }
@@ -110,14 +116,17 @@ html, body, [class*="css"] {
 st.markdown("""
 <div class="flower">🌸</div>
 <div class="flower">🌺</div>
-<div class="flower">💮</div>
 <div class="flower">🏵️</div>
+<div class="flower">💮</div>
 <div class="flower">🌼</div>
 """, unsafe_allow_html=True)
 
-# ---------------- TITLES ---------------- #
+# ---------------- TITLE ---------------- #
 
-st.markdown('<div class="title">💍 शुभ विवाह 💍</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="title">💍 शुभ विवाह 💍</div>',
+    unsafe_allow_html=True
+)
 
 st.markdown(
     '<div class="subtitle">Manish ❤️ Mansi</div>',
@@ -126,52 +135,65 @@ st.markdown(
 
 # ---------------- MUSIC PLAYER ---------------- #
 
-music_files = [
-    "jashne_bahara.mp3",
-    "mangalyam_sathiya.mp3"
-]
+music_html = """
+<!DOCTYPE html>
+<html>
+<body>
 
-audio_html = f"""
-<audio id="weddingMusic" autoplay controls style="width:100%;">
-    <source src="{random.choice(music_files)}" type="audio/mp3">
+<audio id="music" autoplay controls style="width:100%;">
 </audio>
 
 <script>
 
-const songs = {music_files};
+var songs = [
+    "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/jashne_bahara.mp3",
+    
+    "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/mangalyam_sathiya.mp3"
+];
 
-let currentSong = Math.floor(Math.random() * songs.length);
+var current = 0;
 
-const player = document.getElementById("weddingMusic");
+var music = document.getElementById("music");
 
-player.src = songs[currentSong];
+function playSong(index){
 
-player.addEventListener('ended', function() {{
+    music.src = songs[index];
 
-    currentSong++;
+    music.play();
 
-    if(currentSong >= songs.length){{
-        currentSong = 0;
-    }}
+}
 
-    player.src = songs[currentSong];
+playSong(current);
 
-    player.play();
+music.addEventListener("ended", function(){
 
-}});
+    current++;
+
+    if(current >= songs.length){
+        current = 0;
+    }
+
+    playSong(current);
+
+});
 
 </script>
+
+</body>
+</html>
 """
 
-st.markdown(audio_html, unsafe_allow_html=True)
+components.html(music_html, height=70)
 
-# ---------------- IMAGE PAGES ---------------- #
+# ---------------- PAGE LIST ---------------- #
 
 pages = [
     "page_1.jpg",
     "page_2.jpg",
     "page_3.jpg"
 ]
+
+# ---------------- SESSION ---------------- #
 
 if "page" not in st.session_state:
     st.session_state.page = 0
@@ -181,30 +203,31 @@ if "page" not in st.session_state:
 col1, col2, col3 = st.columns([1,1,1])
 
 with col1:
-    if st.button("⬅ Previous"):
+    if st.button("⬅"):
         if st.session_state.page > 0:
             st.session_state.page -= 1
 
 with col2:
     st.markdown(
-        f"<h3 style='text-align:center;color:#8B0000;'>Page {st.session_state.page+1}/{len(pages)}</h3>",
+        f"<h4 style='text-align:center;color:#8B0000;'>Page {st.session_state.page+1}/{len(pages)}</h4>",
         unsafe_allow_html=True
     )
 
 with col3:
-    if st.button("Next ➡"):
+    if st.button("➡"):
         if st.session_state.page < len(pages)-1:
             st.session_state.page += 1
 
-# ---------------- DISPLAY IMAGE ---------------- #
+# ---------------- SHOW IMAGE ---------------- #
 
-image = Image.open(pages[st.session_state.page])
-
-st.image(image, use_container_width=True)
+st.image(
+    pages[st.session_state.page],
+    use_container_width=True
+)
 
 # ---------------- FOOTER ---------------- #
 
 st.markdown(
-    "<h4 style='text-align:center;color:#8B0000;'>✨ With Love & Blessings ✨</h4>",
+    "<div style='text-align:center;color:#8B0000;font-size:18px;'>✨ Welcome With Love ✨</div>",
     unsafe_allow_html=True
 )
