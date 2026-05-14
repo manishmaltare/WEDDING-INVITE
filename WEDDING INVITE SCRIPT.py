@@ -9,7 +9,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- CUSTOM CSS ---------------- #
+# ---------------- CSS ---------------- #
 
 st.markdown("""
 <style>
@@ -18,58 +18,61 @@ st.markdown("""
 footer {visibility:hidden;}
 header {visibility:hidden;}
 
-html, body, [class*="css"] {
-    background-color: #fffaf5;
+html, body, [class*="css"]{
+    background:#fffaf5;
     font-family: Georgia;
 }
 
-/* Reduce top spacing */
-.block-container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    max-width: 650px;
+/* Main container */
+.block-container{
+    padding-top:0.7rem;
+    padding-bottom:0rem;
+    max-width:650px;
 }
 
 /* Title */
-.title {
+.title{
     text-align:center;
-    font-size:38px;
+    font-size:34px;
     color:#8B0000;
     font-weight:bold;
     margin-bottom:0px;
 }
 
-.subtitle {
+.subtitle{
     text-align:center;
-    font-size:20px;
     color:#b8860b;
-    margin-bottom:15px;
+    font-size:18px;
+    margin-top:-5px;
+    margin-bottom:8px;
 }
 
 /* Buttons */
-.stButton>button {
+.stButton > button{
     width:100%;
-    border-radius:10px;
-    background-color:#8B0000;
+    border-radius:8px;
+    background:#8B0000;
     color:white;
     border:none;
-    padding:0.45rem;
-    font-size:16px;
+    padding:0.25rem;
+    font-size:14px;
     font-weight:bold;
+    min-height:35px;
 }
 
-.stButton>button:hover {
-    background-color:#a50000;
+.stButton > button:hover{
+    background:#a50000;
     color:white;
 }
 
-/* Flowers Animation */
-.flower {
-    position: fixed;
-    top: -10vh;
-    animation: fall linear infinite;
-    z-index: 999;
-    opacity:0.8;
+/* Falling Flowers */
+
+.flower{
+    position:fixed;
+    top:-10vh;
+    animation:fall linear infinite;
+    z-index:999;
+    opacity:0.7;
 }
 
 .flower:nth-child(1){
@@ -79,7 +82,7 @@ html, body, [class*="css"] {
 
 .flower:nth-child(2){
     left:30%;
-    animation-duration:13s;
+    animation-duration:12s;
 }
 
 .flower:nth-child(3){
@@ -89,22 +92,21 @@ html, body, [class*="css"] {
 
 .flower:nth-child(4){
     left:70%;
-    animation-duration:14s;
+    animation-duration:13s;
 }
 
 .flower:nth-child(5){
     left:90%;
-    animation-duration:12s;
+    animation-duration:10s;
 }
 
-@keyframes fall {
-
-    0% {
-        transform: translateY(-10vh) rotate(0deg);
+@keyframes fall{
+    0%{
+        transform:translateY(-10vh) rotate(0deg);
     }
 
-    100% {
-        transform: translateY(110vh) rotate(360deg);
+    100%{
+        transform:translateY(110vh) rotate(360deg);
     }
 }
 
@@ -116,8 +118,8 @@ html, body, [class*="css"] {
 st.markdown("""
 <div class="flower">🌸</div>
 <div class="flower">🌺</div>
-<div class="flower">🏵️</div>
 <div class="flower">💮</div>
+<div class="flower">🏵️</div>
 <div class="flower">🌼</div>
 """, unsafe_allow_html=True)
 
@@ -133,27 +135,28 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------- MUSIC PLAYER ---------------- #
+# ---------------- AUTO MUSIC ---------------- #
 
 music_html = """
 <!DOCTYPE html>
 <html>
 <body>
 
-<audio id="music" autoplay controls style="width:100%;">
-</audio>
+<audio id="music" autoplay></audio>
 
 <script>
 
-var songs = [
-    "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/jashne_bahara.mp3",
-    
-    "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/mangalyam_sathiya.mp3"
+const songs = [
+
+"https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/jashne_bahara.mp3",
+
+"https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/mangalyam_sathiya.mp3"
+
 ];
 
-var current = 0;
+let currentSong = 0;
 
-var music = document.getElementById("music");
+const music = document.getElementById("music");
 
 function playSong(index){
 
@@ -163,17 +166,17 @@ function playSong(index){
 
 }
 
-playSong(current);
+playSong(currentSong);
 
 music.addEventListener("ended", function(){
 
-    current++;
+    currentSong++;
 
-    if(current >= songs.length){
-        current = 0;
+    if(currentSong >= songs.length){
+        currentSong = 0;
     }
 
-    playSong(current);
+    playSong(currentSong);
 
 });
 
@@ -183,9 +186,9 @@ music.addEventListener("ended", function(){
 </html>
 """
 
-components.html(music_html, height=70)
+components.html(music_html, height=0)
 
-# ---------------- PAGE LIST ---------------- #
+# ---------------- PAGES ---------------- #
 
 pages = [
     "page_1.jpg",
@@ -200,7 +203,7 @@ if "page" not in st.session_state:
 
 # ---------------- NAVIGATION ---------------- #
 
-col1, col2, col3 = st.columns([1,1,1])
+col1, col2, col3 = st.columns([1,2,1])
 
 with col1:
     if st.button("⬅"):
@@ -209,7 +212,17 @@ with col1:
 
 with col2:
     st.markdown(
-        f"<h4 style='text-align:center;color:#8B0000;'>Page {st.session_state.page+1}/{len(pages)}</h4>",
+        f"""
+        <div style='
+        text-align:center;
+        color:#8B0000;
+        font-size:16px;
+        font-weight:bold;
+        padding-top:5px;
+        '>
+        Page {st.session_state.page + 1} / {len(pages)}
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
@@ -218,7 +231,7 @@ with col3:
         if st.session_state.page < len(pages)-1:
             st.session_state.page += 1
 
-# ---------------- SHOW IMAGE ---------------- #
+# ---------------- IMAGE ---------------- #
 
 st.image(
     pages[st.session_state.page],
@@ -228,6 +241,16 @@ st.image(
 # ---------------- FOOTER ---------------- #
 
 st.markdown(
-    "<div style='text-align:center;color:#8B0000;font-size:18px;'>✨ Welcome With Love ✨</div>",
+    """
+    <div style='
+    text-align:center;
+    color:#8B0000;
+    font-size:15px;
+    margin-top:5px;
+    margin-bottom:0px;
+    '>
+    ✨ Welcome With Love ✨
+    </div>
+    """,
     unsafe_allow_html=True
 )
