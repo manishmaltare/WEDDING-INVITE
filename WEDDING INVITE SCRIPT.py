@@ -9,29 +9,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- SESSION ---------------- #
-
-if "page" not in st.session_state:
-    st.session_state.page = 0
-
-# ---------------- PAGES ---------------- #
-
-pages = [
-    "page_1.jpg",
-    "page_2.jpg",
-    "page_3.jpg"
-]
-
-# ---------------- FUNCTIONS ---------------- #
-
-def next_page():
-    if st.session_state.page < len(pages)-1:
-        st.session_state.page += 1
-
-def prev_page():
-    if st.session_state.page > 0:
-        st.session_state.page -= 1
-
 # ---------------- CSS ---------------- #
 
 st.markdown("""
@@ -63,27 +40,15 @@ html, body, [class*="css"]{
     color:#b8860b;
     font-size:18px;
     font-weight:bold;
-    margin-bottom:2px;
+    margin-bottom:8px;
+    margin-top:-5px;
 }
 
-/* Navigation Buttons */
+/* Remove image gaps */
 
-div.stButton > button:first-child{
-    border:none;
-    background:rgba(139,0,0,0.35);
-    color:white;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    font-size:22px;
-    font-weight:bold;
-    padding:0px;
-    backdrop-filter: blur(4px);
-}
-
-div.stButton > button:first-child:hover{
-    background:rgba(139,0,0,0.55);
-    color:white;
+img{
+    margin-bottom:8px;
+    border-radius:8px;
 }
 
 /* Music Button */
@@ -92,14 +57,15 @@ div.stButton > button:first-child:hover{
     position:fixed;
     bottom:15px;
     right:15px;
-    width:36px;
-    height:36px;
+    width:42px;
+    height:42px;
     border-radius:50%;
     background:rgba(139,0,0,0.45);
     color:white;
     border:none;
     z-index:9999;
-    font-size:16px;
+    font-size:18px;
+    backdrop-filter: blur(4px);
 }
 
 /* Falling Flowers */
@@ -198,6 +164,8 @@ function playSong(index){
 
     player.src = songs[index];
 
+    player.load();
+
     player.play();
 
 }
@@ -232,27 +200,17 @@ player.addEventListener("ended", function(){
 
 components.html(music_html, height=0)
 
-# ---------------- IMAGE ---------------- #
+# ---------------- ALL PAGES ---------------- #
 
-st.image(
-    pages[st.session_state.page],
-    use_container_width=True
-)
+pages = [
+    "page_1.jpg",
+    "page_2.jpg",
+    "page_3.jpg"
+]
 
-# ---------------- NAVIGATION ---------------- #
+for page in pages:
 
-col1, col2, col3 = st.columns([1,10,1])
-
-with col1:
-    st.button(
-        "❮",
-        on_click=prev_page,
-        use_container_width=True
-    )
-
-with col3:
-    st.button(
-        "❯",
-        on_click=next_page,
+    st.image(
+        page,
         use_container_width=True
     )
