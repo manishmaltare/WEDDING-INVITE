@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
 # ---------------- PAGE CONFIG ---------------- #
 
@@ -24,28 +23,22 @@ html, body, [class*="css"]{
 }
 
 /* Main Container */
+
 .block-container{
-    padding-top:0.4rem;
+    padding-top:0rem;
     padding-bottom:0rem;
     max-width:650px;
 }
 
-/* Title */
-
-.title{
-    text-align:center;
-    font-size:32px;
-    color:#8B0000;
-    font-weight:bold;
-    margin-bottom:0px;
-}
+/* Subtitle */
 
 .subtitle{
     text-align:center;
     color:#b8860b;
-    font-size:17px;
+    font-size:18px;
     margin-top:-5px;
     margin-bottom:5px;
+    font-weight:bold;
 }
 
 /* Navigation Buttons */
@@ -115,19 +108,15 @@ html, body, [class*="css"]{
     }
 }
 
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
+/* Hide audio controls */
 
-/* Hide audio player completely */
-
-audio {
+audio{
     display:none;
 }
 
 </style>
 """, unsafe_allow_html=True)
+
 # ---------------- FLOWERS ---------------- #
 
 st.markdown("""
@@ -138,12 +127,7 @@ st.markdown("""
 <div class="flower">🌼</div>
 """, unsafe_allow_html=True)
 
-# ---------------- TITLE ---------------- #
-
-st.markdown(
-    '<div class="title">💍 शुभ विवाह 💍</div>',
-    unsafe_allow_html=True
-)
+# ---------------- COUPLE NAMES ---------------- #
 
 st.markdown(
     '<div class="subtitle">Manish ❤️ Mansi</div>',
@@ -163,6 +147,7 @@ st.audio(
     loop=True,
     autoplay=True
 )
+
 # ---------------- PAGES ---------------- #
 
 pages = [
