@@ -21,7 +21,7 @@ pages = [
     "page_3.jpg"
 ]
 
-# ---------------- BUTTON FUNCTIONS ---------------- #
+# ---------------- PAGE FUNCTIONS ---------------- #
 
 def next_page():
     if st.session_state.page < len(pages) - 1:
@@ -55,7 +55,7 @@ html, body, [class*="css"]{
     padding-right:0rem;
 }
 
-/* Couple Name */
+/* Couple Names */
 
 .subtitle{
     text-align:center;
@@ -66,13 +66,13 @@ html, body, [class*="css"]{
     font-weight:bold;
 }
 
-/* Hide Audio Player */
+/* Hide Audio Controls */
 
 audio{
     display:none;
 }
 
-/* Remove Button Spacing */
+/* Navigation Buttons */
 
 div.stButton > button:first-child{
     border:none;
@@ -92,7 +92,7 @@ div.stButton > button:first-child:hover{
     color:white;
 }
 
-/* Floating Flowers */
+/* Falling Flowers */
 
 .flower{
     position:fixed;
@@ -160,17 +160,47 @@ st.markdown(
 
 # ---------------- BACKGROUND MUSIC ---------------- #
 
-audio_file = open("jashne_bahara.mp3", "rb")
+st.markdown("""
+<audio id="weddingMusic" autoplay></audio>
 
-audio_bytes = audio_file.read()
+<script>
 
-st.audio(
-    audio_bytes,
-    format="audio/mp3",
-    start_time=0,
-    loop=True,
-    autoplay=True
-)
+const songs = [
+
+"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/jashne_bahara.mp3",
+
+"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/mangalyam_sathiya.mp3"
+
+];
+
+let currentSong = 0;
+
+const player = document.getElementById("weddingMusic");
+
+function playSong(index){
+
+    player.src = songs[index];
+
+    player.play();
+
+}
+
+playSong(currentSong);
+
+player.addEventListener("ended", function(){
+
+    currentSong++;
+
+    if(currentSong >= songs.length){
+        currentSong = 0;
+    }
+
+    playSong(currentSong);
+
+});
+
+</script>
+""", unsafe_allow_html=True)
 
 # ---------------- IMAGE ---------------- #
 
@@ -179,7 +209,7 @@ st.image(
     use_container_width=True
 )
 
-# ---------------- OVERLAY NAVIGATION ---------------- #
+# ---------------- NAVIGATION ---------------- #
 
 col1, col2, col3 = st.columns([1,10,1])
 
