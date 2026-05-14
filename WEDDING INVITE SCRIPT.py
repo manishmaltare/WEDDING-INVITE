@@ -117,7 +117,17 @@ html, body, [class*="css"]{
 
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
 
+/* Hide audio player completely */
+
+audio {
+    display:none;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # ---------------- FLOWERS ---------------- #
 
 st.markdown("""
@@ -142,21 +152,17 @@ st.markdown(
 
 # ---------------- BACKGROUND MUSIC ---------------- #
 
-music_html = """
-<!DOCTYPE html>
-<html>
-<body>
+audio_file = open("jashne_bahara.mp3", "rb")
 
-<audio autoplay loop>
-  <source src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/jashne_bahara.mp3" type="audio/mp3">
-</audio>
+audio_bytes = audio_file.read()
 
-</body>
-</html>
-"""
-
-components.html(music_html, height=0)
-
+st.audio(
+    audio_bytes,
+    format="audio/mp3",
+    start_time=0,
+    loop=True,
+    autoplay=True
+)
 # ---------------- PAGES ---------------- #
 
 pages = [
