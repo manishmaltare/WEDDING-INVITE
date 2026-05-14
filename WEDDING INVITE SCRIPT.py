@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 # ---------------- PAGE CONFIG ---------------- #
 
@@ -21,10 +22,10 @@ pages = [
     "page_3.jpg"
 ]
 
-# ---------------- PAGE FUNCTIONS ---------------- #
+# ---------------- FUNCTIONS ---------------- #
 
 def next_page():
-    if st.session_state.page < len(pages) - 1:
+    if st.session_state.page < len(pages)-1:
         st.session_state.page += 1
 
 def prev_page():
@@ -42,7 +43,7 @@ header {visibility:hidden;}
 
 html, body, [class*="css"]{
     background:#fffaf5;
-    font-family: Georgia;
+    font-family:Georgia;
 }
 
 /* Main Container */
@@ -61,15 +62,8 @@ html, body, [class*="css"]{
     text-align:center;
     color:#b8860b;
     font-size:18px;
-    margin-top:-5px;
-    margin-bottom:2px;
     font-weight:bold;
-}
-
-/* Hide Audio Controls */
-
-audio{
-    display:none;
+    margin-bottom:2px;
 }
 
 /* Navigation Buttons */
@@ -90,6 +84,22 @@ div.stButton > button:first-child{
 div.stButton > button:first-child:hover{
     background:rgba(139,0,0,0.55);
     color:white;
+}
+
+/* Music Button */
+
+.music-btn{
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:rgba(139,0,0,0.45);
+    color:white;
+    border:none;
+    z-index:9999;
+    font-size:16px;
 }
 
 /* Falling Flowers */
@@ -151,17 +161,24 @@ st.markdown("""
 <div class="flower">🌼</div>
 """, unsafe_allow_html=True)
 
-# ---------------- COUPLE NAMES ---------------- #
+# ---------------- COUPLE NAME ---------------- #
 
 st.markdown(
     '<div class="subtitle">Manish ❤️ Mansi</div>',
     unsafe_allow_html=True
 )
 
-# ---------------- BACKGROUND MUSIC ---------------- #
+# ---------------- MUSIC ---------------- #
 
-st.markdown("""
-<audio id="weddingMusic" autoplay></audio>
+music_html = """
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<button class="music-btn" onclick="startMusic()">♫</button>
+
+<audio id="musicPlayer"></audio>
 
 <script>
 
@@ -175,7 +192,7 @@ const songs = [
 
 let currentSong = 0;
 
-const player = document.getElementById("weddingMusic");
+const player = document.getElementById("musicPlayer");
 
 function playSong(index){
 
@@ -185,14 +202,22 @@ function playSong(index){
 
 }
 
-playSong(currentSong);
+function startMusic(){
+
+    playSong(currentSong);
+
+    document.querySelector(".music-btn").style.display = "none";
+
+}
 
 player.addEventListener("ended", function(){
 
     currentSong++;
 
     if(currentSong >= songs.length){
+
         currentSong = 0;
+
     }
 
     playSong(currentSong);
@@ -200,7 +225,12 @@ player.addEventListener("ended", function(){
 });
 
 </script>
-""", unsafe_allow_html=True)
+
+</body>
+</html>
+"""
+
+components.html(music_html, height=0)
 
 # ---------------- IMAGE ---------------- #
 
