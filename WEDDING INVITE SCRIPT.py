@@ -124,33 +124,46 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------- MUSIC ---------------- #
+# ---------------- MUSIC PLAYER ---------------- #
 
 music_files = [
     "jashne_bahara.mp3",
     "mangalyam_sathiya.mp3"
 ]
 
-if "music" not in st.session_state:
-    st.session_state.music = random.choice(music_files)
+audio_html = f"""
+<audio id="weddingMusic" autoplay controls style="width:100%;">
+    <source src="{random.choice(music_files)}" type="audio/mp3">
+</audio>
 
-selected_music = st.session_state.music
+<script>
 
-def autoplay_audio(file_path):
-    with open(file_path, "rb") as f:
-        data = f.read()
+const songs = {music_files};
 
-    b64 = base64.b64encode(data).decode()
+let currentSong = Math.floor(Math.random() * songs.length);
 
-    md = f"""
-    <audio autoplay controls loop style="width:100%;">
-    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-    </audio>
-    """
+const player = document.getElementById("weddingMusic");
 
-    st.markdown(md, unsafe_allow_html=True)
+player.src = songs[currentSong];
 
-autoplay_audio(selected_music)
+player.addEventListener('ended', function() {{
+
+    currentSong++;
+
+    if(currentSong >= songs.length){{
+        currentSong = 0;
+    }}
+
+    player.src = songs[currentSong];
+
+    player.play();
+
+}});
+
+</script>
+"""
+
+st.markdown(audio_html, unsafe_allow_html=True)
 
 # ---------------- IMAGE PAGES ---------------- #
 
