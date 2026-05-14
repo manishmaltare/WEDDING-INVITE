@@ -144,23 +144,51 @@ music_html = """
 
 <button class="music-btn" onclick="startMusic()">♫</button>
 
-<audio id="musicPlayer" loop>
-
-<source src="https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/jashne_bahara.mp3" type="audio/mp3">
-
-</audio>
+<audio id="musicPlayer"></audio>
 
 <script>
 
+const songs = [
+
+"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/jashne_bahara.mp3",
+
+"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/mangalyam_sathiya.mp3"
+
+];
+
+let currentSong = 0;
+
 const player = document.getElementById("musicPlayer");
+
+function playSong(index){
+
+    player.src = songs[index];
+
+    player.play();
+
+}
 
 function startMusic(){
 
-    player.play();
+    playSong(currentSong);
 
     document.querySelector(".music-btn").style.display = "none";
 
 }
+
+player.addEventListener("ended", function(){
+
+    currentSong++;
+
+    if(currentSong >= songs.length){
+
+        currentSong = 0;
+
+    }
+
+    playSong(currentSong);
+
+});
 
 </script>
 
@@ -168,7 +196,7 @@ function startMusic(){
 </html>
 """
 
-components.html(music_html, height=0)
+components.html(music_html, height=60)
 
 # ---------------- ALL PAGES ---------------- #
 
