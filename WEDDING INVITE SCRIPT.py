@@ -23,17 +23,18 @@ html, body, [class*="css"]{
     font-family: Georgia;
 }
 
-/* Main container */
+/* Main Container */
 .block-container{
-    padding-top:0.7rem;
+    padding-top:0.4rem;
     padding-bottom:0rem;
     max-width:650px;
 }
 
 /* Title */
+
 .title{
     text-align:center;
-    font-size:34px;
+    font-size:32px;
     color:#8B0000;
     font-weight:bold;
     margin-bottom:0px;
@@ -42,22 +43,25 @@ html, body, [class*="css"]{
 .subtitle{
     text-align:center;
     color:#b8860b;
-    font-size:18px;
+    font-size:17px;
     margin-top:-5px;
-    margin-bottom:8px;
+    margin-bottom:5px;
 }
 
-/* Buttons */
+/* Navigation Buttons */
+
 .stButton > button{
-    width:100%;
-    border-radius:8px;
+    width:40px;
+    height:32px;
+    border-radius:50%;
     background:#8B0000;
     color:white;
     border:none;
-    padding:0.25rem;
     font-size:14px;
     font-weight:bold;
-    min-height:35px;
+    padding:0px;
+    margin:auto;
+    display:block;
 }
 
 .stButton > button:hover{
@@ -72,7 +76,7 @@ html, body, [class*="css"]{
     top:-10vh;
     animation:fall linear infinite;
     z-index:999;
-    opacity:0.7;
+    opacity:0.65;
 }
 
 .flower:nth-child(1){
@@ -101,6 +105,7 @@ html, body, [class*="css"]{
 }
 
 @keyframes fall{
+
     0%{
         transform:translateY(-10vh) rotate(0deg);
     }
@@ -135,52 +140,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------- AUTO MUSIC ---------------- #
+# ---------------- BACKGROUND MUSIC ---------------- #
 
 music_html = """
 <!DOCTYPE html>
 <html>
 <body>
 
-<audio id="music" autoplay></audio>
-
-<script>
-
-const songs = [
-
-"https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/jashne_bahara.mp3",
-
-"https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/mangalyam_sathiya.mp3"
-
-];
-
-let currentSong = 0;
-
-const music = document.getElementById("music");
-
-function playSong(index){
-
-    music.src = songs[index];
-
-    music.play();
-
-}
-
-playSong(currentSong);
-
-music.addEventListener("ended", function(){
-
-    currentSong++;
-
-    if(currentSong >= songs.length){
-        currentSong = 0;
-    }
-
-    playSong(currentSong);
-
-});
-
-</script>
+<audio autoplay loop>
+  <source src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/jashne_bahara.mp3" type="audio/mp3">
+</audio>
 
 </body>
 </html>
@@ -203,31 +172,15 @@ if "page" not in st.session_state:
 
 # ---------------- NAVIGATION ---------------- #
 
-col1, col2, col3 = st.columns([1,2,1])
+col1, col2, col3 = st.columns([1,8,1])
 
 with col1:
-    if st.button("⬅"):
+    if st.button("❮"):
         if st.session_state.page > 0:
             st.session_state.page -= 1
 
-with col2:
-    st.markdown(
-        f"""
-        <div style='
-        text-align:center;
-        color:#8B0000;
-        font-size:16px;
-        font-weight:bold;
-        padding-top:5px;
-        '>
-        Page {st.session_state.page + 1} / {len(pages)}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
 with col3:
-    if st.button("➡"):
+    if st.button("❯"):
         if st.session_state.page < len(pages)-1:
             st.session_state.page += 1
 
@@ -236,21 +189,4 @@ with col3:
 st.image(
     pages[st.session_state.page],
     use_container_width=True
-)
-
-# ---------------- FOOTER ---------------- #
-
-st.markdown(
-    """
-    <div style='
-    text-align:center;
-    color:#8B0000;
-    font-size:15px;
-    margin-top:5px;
-    margin-bottom:0px;
-    '>
-    ✨ Welcome With Love ✨
-    </div>
-    """,
-    unsafe_allow_html=True
 )
