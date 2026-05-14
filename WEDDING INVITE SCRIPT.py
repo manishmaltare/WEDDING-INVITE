@@ -142,53 +142,49 @@ music_html = """
 
 <body>
 
-<button class="music-btn" onclick="startMusic()">♫</button>
+<audio id="musicPlayer" autoplay loop>
 
-<audio id="musicPlayer"></audio>
+<source src="https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/jashne_bahara.mp3" type="audio/mp3">
+
+</audio>
+
+<button id="fallbackBtn" onclick="playMusic()" 
+style="
+position:fixed;
+bottom:15px;
+right:15px;
+width:38px;
+height:38px;
+border-radius:50%;
+border:none;
+background:rgba(139,0,0,0.45);
+color:white;
+font-size:16px;
+display:none;
+z-index:9999;
+">
+♫
+</button>
 
 <script>
 
-const songs = [
-
-"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/jashne_bahara.mp3",
-
-"https://raw.githubusercontent.com/manishmaltare/WEDDING-INVITE/main/mangalyam_sathiya.mp3"
-
-];
-
-let currentSong = 0;
-
 const player = document.getElementById("musicPlayer");
 
-function playSong(index){
+const fallbackBtn = document.getElementById("fallbackBtn");
 
-    player.src = songs[index];
+player.play().catch(() => {
+
+    fallbackBtn.style.display = "block";
+
+});
+
+function playMusic(){
 
     player.play();
 
-}
-
-function startMusic(){
-
-    playSong(currentSong);
-
-    document.querySelector(".music-btn").style.display = "none";
+    fallbackBtn.style.display = "none";
 
 }
-
-player.addEventListener("ended", function(){
-
-    currentSong++;
-
-    if(currentSong >= songs.length){
-
-        currentSong = 0;
-
-    }
-
-    playSong(currentSong);
-
-});
 
 </script>
 
@@ -196,8 +192,7 @@ player.addEventListener("ended", function(){
 </html>
 """
 
-components.html(music_html, height=60)
-
+components.html(music_html, height=0)
 # ---------------- ALL PAGES ---------------- #
 
 pages = [
