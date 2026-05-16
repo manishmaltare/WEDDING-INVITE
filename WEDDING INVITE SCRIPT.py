@@ -69,23 +69,23 @@ img{
     cursor:pointer;
 }
 
-/* Location Button */
+/* Venue Location Button */
 
 .location-btn{
     position:fixed;
     bottom:75px;
     right:15px;
-    padding:10px 16px;
-    border-radius:30px;
-    background:rgba(139,0,0,0.55);
+    padding:12px 20px;
+    border-radius:35px;
+    background:rgba(139,0,0,0.60);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:10px;
     text-decoration:none;
     z-index:9999;
-    font-size:20px;
+    font-size:26px;
     font-weight:bold;
     backdrop-filter: blur(4px);
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
@@ -168,14 +168,14 @@ music_html = """
 <!-- Music Button -->
 <button class="music-btn" onclick="startMusic()">♫</button>
 
-<!-- Location Button -->
+<!-- Venue Location Button -->
 <a 
     class="location-btn"
     href="https://maps.google.com/?q=22.737284863576736,75.77342718392956"
     target="_blank"
-    title="Wedding Location"
+    title="Venue Location"
 >
-📍 Location
+📍 Venue Location
 </a>
 
 <audio id="musicPlayer"></audio>
@@ -230,7 +230,7 @@ player.addEventListener("ended", function(){
 </html>
 """
 
-components.html(music_html, height=130)
+components.html(music_html, height=140)
 
 # ---------------- ALL PAGES ---------------- #
 
