@@ -66,6 +66,27 @@ img{
     z-index:9999;
     font-size:18px;
     backdrop-filter: blur(4px);
+    cursor:pointer;
+}
+
+/* Location Button */
+
+.location-btn{
+    position:fixed;
+    bottom:70px;
+    right:15px;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:rgba(139,0,0,0.45);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    z-index:9999;
+    font-size:20px;
+    backdrop-filter: blur(4px);
 }
 
 /* Falling Flowers */
@@ -130,11 +151,11 @@ st.markdown("""
 # ---------------- COUPLE NAME ---------------- #
 
 st.markdown(
-    '<div class="subtitle">Manish ❤️ Mansi</div>',
+    '<div class="subtitle">Manish ❤️ Mansi (Divya)</div>',
     unsafe_allow_html=True
 )
 
-# ---------------- MUSIC ---------------- #
+# ---------------- MUSIC + LOCATION ---------------- #
 
 music_html = """
 <!DOCTYPE html>
@@ -142,7 +163,18 @@ music_html = """
 
 <body>
 
+<!-- Music Button -->
 <button class="music-btn" onclick="startMusic()">♫</button>
+
+<!-- Location Button -->
+<a 
+    class="location-btn"
+    href="https://maps.google.com/?q=22.737284863576736,75.77342718392956"
+    target="_blank"
+    title="Wedding Location"
+>
+📍
+</a>
 
 <audio id="musicPlayer"></audio>
 
@@ -196,7 +228,8 @@ player.addEventListener("ended", function(){
 </html>
 """
 
-components.html(music_html, height=60)
+components.html(music_html, height=120)
+
 # ---------------- ALL PAGES ---------------- #
 
 pages = [
