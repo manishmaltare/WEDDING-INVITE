@@ -69,13 +69,13 @@ img{
     cursor:pointer;
 }
 
-/* Venue Location Button */
+/* Venue Button */
 
 .location-btn{
-    position:fixed;
-    bottom:75px;
+    position:absolute;
+    top:140px;
     right:15px;
-    padding:12px 20px;
+    padding:12px 22px;
     border-radius:35px;
     background:rgba(139,0,0,0.60);
     color:white;
@@ -85,7 +85,7 @@ img{
     gap:10px;
     text-decoration:none;
     z-index:9999;
-    font-size:26px;
+    font-size:28px;
     font-weight:bold;
     backdrop-filter: blur(4px);
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
@@ -157,7 +157,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------- MUSIC + LOCATION ---------------- #
+# ---------------- MUSIC + VENUE ---------------- #
 
 music_html = """
 <!DOCTYPE html>
@@ -168,14 +168,14 @@ music_html = """
 <!-- Music Button -->
 <button class="music-btn" onclick="startMusic()">♫</button>
 
-<!-- Venue Location Button -->
+<!-- Venue Button -->
 <a 
     class="location-btn"
     href="https://maps.google.com/?q=22.737284863576736,75.77342718392956"
     target="_blank"
-    title="Venue Location"
+    title="Venue"
 >
-📍 Venue Location
+📍 Venue
 </a>
 
 <audio id="musicPlayer"></audio>
