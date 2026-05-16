@@ -57,14 +57,14 @@ img{
     position:fixed;
     bottom:15px;
     right:15px;
-    width:42px;
-    height:42px;
+    width:45px;
+    height:45px;
     border-radius:50%;
     background:rgba(139,0,0,0.45);
     color:white;
     border:none;
     z-index:9999;
-    font-size:18px;
+    font-size:20px;
     backdrop-filter: blur(4px);
     cursor:pointer;
 }
@@ -73,20 +73,22 @@ img{
 
 .location-btn{
     position:fixed;
-    bottom:70px;
+    bottom:75px;
     right:15px;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:rgba(139,0,0,0.45);
+    padding:10px 16px;
+    border-radius:30px;
+    background:rgba(139,0,0,0.55);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
+    gap:8px;
     text-decoration:none;
     z-index:9999;
     font-size:20px;
+    font-weight:bold;
     backdrop-filter: blur(4px);
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* Falling Flowers */
@@ -173,7 +175,7 @@ music_html = """
     target="_blank"
     title="Wedding Location"
 >
-📍
+📍 Location
 </a>
 
 <audio id="musicPlayer"></audio>
@@ -228,7 +230,7 @@ player.addEventListener("ended", function(){
 </html>
 """
 
-components.html(music_html, height=120)
+components.html(music_html, height=130)
 
 # ---------------- ALL PAGES ---------------- #
 
