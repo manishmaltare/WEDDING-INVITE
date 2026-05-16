@@ -171,7 +171,7 @@ music_html = """
 <!-- Venue Button -->
 <a 
     class="location-btn"
-    href="https://maps.google.com/?q=22.737284863576736,75.77342718392956"
+    href="https://maps.app.goo.gl/bgnF4jqYb5z5UPpe9?g_st=aw"
     target="_blank"
     title="Venue"
 >
